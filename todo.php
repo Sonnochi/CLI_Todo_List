@@ -3,34 +3,50 @@
 // Create array to hold list of todo items
 $items = array();
 
+function listItems($list){
+    $string = '';
+    foreach ($list as $key => $items) {
+        $key++;
+        $string .= "[{$key}] {$items}\n";
+    }
+        return $string;
+}
+
+function getInput($lower = false){
+
+    if($lower) {
+        return strtolower(trim(fgets(STDIN)));
+    } else {
+        return trim(fgets(STDIN));
+    }
+
+}
+
+
 // The loop!
 do {
-    // Iterate through list items
-    foreach ($items as $key => $item) {
-        $key++;
-        // Display each item and a newline
-        echo "[{$key}] {$item}\n";
+    // Echo the list produced by the function
+     echo listItems($items);
 
-    }
 
     // Show the menu options
     echo '(N)ew item, (R)emove item, (Q)uit : ';
 
     // Get the input from user
     // Use trim() to remove whitespace and newlines
-    $input = strtolower(trim(fgets(STDIN)));
+    $input = getInput(true);
 
     // Check for actionable input
     if ($input == 'n') {
         // Ask for entry
         echo 'Enter item: ';
         // Add entry to list array
-        $items[] = trim(fgets(STDIN));
+        $items[] = getInput();
     } elseif ($input == 'r') {
         // Remove which item?
         echo 'Enter item number to remove: ';
         // Get array key
-        $key = trim(fgets(STDIN));
+        $key = getInput();
         // Remove from array
         $key--;
         unset($items[$key]);
