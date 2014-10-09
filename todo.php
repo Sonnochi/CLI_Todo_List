@@ -21,6 +21,26 @@ function getInput($lower = false){
     }
 
 }
+// funtion to access "Sort" menu
+function sort_menu($list){
+    $input = getInput(true);
+    switch ($input) {
+        case 'a':
+            asort($list);
+            break;
+        case 'z':
+            arsort($list);
+            break;
+        case 'o':
+            ksort($list);
+            break;
+        case 'r':
+            krsort($list);
+                break;    
+       }
+       //Retruns back list
+    return $list;
+}
 
 
 // The loop!
@@ -30,7 +50,7 @@ do {
 
 
     // Show the menu options
-    echo '(N)ew item, (R)emove item, (Q)uit : ';
+    echo '(N)ew item, (R)emove item, (S)ort, (Q)uit : ';
 
     // Get the input from user
     // Use trim() to remove whitespace and newlines
@@ -50,6 +70,11 @@ do {
         // Remove from array
         $key--;
         unset($items[$key]);
+    } elseif ($input == 's') {
+        // Ask for user to input an option
+        echo '(A)-Z, (Z)-A, (O)rder entered, (R)everse order entered:';
+        //calls for "sort_menu() function"
+        $items = sort_menu($items);
     }
 // Exit when input is (Q)uit
 } while ($input != 'q');
