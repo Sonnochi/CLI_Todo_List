@@ -44,7 +44,7 @@ function sort_menu($list){
        //Retruns back to list
     return $list;
 }
- function open() {
+function open() {
     echo "Please enter file name: ";
     $filename = trim(fgets(STDIN));
     $handle = fopen($filename, 'r');
@@ -53,7 +53,16 @@ function sort_menu($list){
     return $contentsArray;
     fclose($handle);
  }
+function save($items){
+    echo "Please enter a name for file: ";
+    $filename = getInput();
+    $handle = fopen($filename, 'w');
 
+    foreach ($items as $item){
+        fwrite($handle, $item . PHP_EOL);
+    }
+    fclose($handle);
+}
 // The loop!
 do {
     // Echo the list produced by the function
@@ -61,7 +70,7 @@ do {
 
 
     // Show the menu options
-    echo '(N)ew item, (R)emove item, (S)ort, (Q)uit, (Op)en file: ';
+    echo '(N)ew item, (R)emove item, (S)ort, (Op)en file, S(a)ve file, (Q)uit: ';
 
     // Get the input from user
     // Use trim() to remove whitespace and newlines
@@ -108,10 +117,12 @@ do {
         }
 
     elseif ($input == 'op') {
-        //print_r(open()); 
-        echo 'hello' . PHP_EOL;
         $file_Array = open();
         print_r(array_merge($items, $file_Array));
+    }
+    elseif ($input == 'a') {
+        save($items);
+        echo 'Save complete!' . PHP_EOL;
     }
 
 // Exit when input is (Q)uit
